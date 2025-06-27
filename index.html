@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>My Pi App</title>
-    <meta charset="UTF-8" />
-  </head>
-  <body>
-    <h1>Hello, this is my Pi App</h1>
-    <p>You can check the verification file at <a href="/validation-key.txt">/validation-key.txt</a></p>
-  </body>
+<head>
+  <title>Test Pi Payment</title>
+</head>
+<body>
+  <h1>Hello, Pi Network!</h1>
+  <button id="payButton">Test Payment</button>
+
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+  <script>
+    const Pi = window.Pi;
+    document.getElementById("payButton").addEventListener("click", async () => {
+      const payment = Pi.createPayment({
+        amount: 0.001,
+        memo: "Test Payment",
+        metadata: { purpose: "testing" },
+      });
+
+      payment.onReadyForServerApproval((paymentId) => {
+        console.log("Payment ready for approval:", paymentId);
+        payment.approve();
+      });
+
+      payment.onReadyForServerCompletion((paymentId, txid) => {
+        console.log("Payment completed:", paymentId, txid);
+        payment.complete();
+      });
+
+      payment.onCancel((paymentId) => {
+        console.log("Payment cancelled:", paymentId);
+      });
+
+      payment.onError((error, payment) => {
+        console.error("Payment error:", error);
+      });
+    });
+  </script>
+</body>
 </html>
