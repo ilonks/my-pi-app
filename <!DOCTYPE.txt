@@ -1,13 +1,1 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZooQuiz - Preview</title>
-</head>
-<body style="font-family: sans-serif; text-align: center; padding-top: 100px;">
-  <h1>🎉 ZooQuiz berhasil berjalan!</h1>
-  <p>Halo Kak Herdy! Ini halaman preview ZooQuiz dari Vercel.</p>
-  <p>Kita berhasil menghindari error 404 dan validasi domain!</p>
-</body>
-</html>
+
