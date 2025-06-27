@@ -5,13 +5,30 @@
 </head>
 <body>
   <h1>Hello, Pi Network!</h1>
-  <button id="payButton">Test Payment</button>
+  <button id="loginButton">Login to Pi</button>
+  <button id="payButton" disabled>Test Payment</button>
 
   <script src="https://sdk.minepi.com/pi-sdk.js"></script>
   <script>
     const Pi = window.Pi;
+
+    let payment;
+
+    document.getElementById("loginButton").addEventListener("click", async () => {
+      try {
+        const scopes = ["payments"];
+        const authResult = await Pi.authenticate(scopes, (payload) => {
+          console.log("Verified user:", payload);
+        });
+        console.log("Auth success:", authResult);
+        document.getElementById("payButton").disabled = false;
+      } catch (err) {
+        console.error("Auth failed:", err);
+      }
+    });
+
     document.getElementById("payButton").addEventListener("click", async () => {
-      const payment = Pi.createPayment({
+      payment = Pi.createPayment({
         amount: 0.001,
         memo: "Test Payment",
         metadata: { purpose: "testing" },
